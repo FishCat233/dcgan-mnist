@@ -1,9 +1,4 @@
-import os
-
-import matplotlib.pyplot as plt
-import torch
-from torchvision import transforms
-from torchvision.datasets import MNIST
+from main import *
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 cpu = torch.device("cpu")
@@ -29,29 +24,29 @@ if __name__ == '__main__':
     plt.figure(figsize=(12, 6))
 
     with torch.no_grad():
-        # 生成 5 张假图片
-        fake_z = torch.normal(0, 1, size=(5, 100), device=device)
+        # 生成 10 张假图片
+        fake_z = torch.normal(0, 1, size=(10, 100), device=device)
         fake_images = model_G(fake_z)
         fake_scores = model_D(fake_images).cpu().numpy().flatten()
         fake_images = fake_images.detach().cpu().numpy()
 
         # 绘制假图片
-        for i in range(5):
-            plt.subplot(2, 5, i + 1)
+        for i in range(10):
+            plt.subplot(2, 10, i + 1)
             plt.imshow(fake_images[i].squeeze(), cmap='gray')
             plt.title(f"Fake\nScore: {fake_scores[i]:.4f}")
             plt.axis('off')
 
-        # 获取 5 张真图片
+        # 获取 10 张真图片
         real_images = []
-        for i in range(5):
+        for i in range(10):
             real_images.append(train_data[i][0])
         real_images_tensor = torch.stack(real_images).to(device)
         real_scores = model_D(real_images_tensor).cpu().numpy().flatten()
 
         # 绘制真图片
-        for i in range(5):
-            plt.subplot(2, 5, i + 6)
+        for i in range(10):
+            plt.subplot(2, 10, i + 11)
             plt.imshow(real_images[i].squeeze(), cmap='gray')
             plt.title(f"Real\nScore: {real_scores[i]:.4f}")
             plt.axis('off')

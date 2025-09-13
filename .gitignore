@@ -1,0 +1,7 @@
+./data/
+.idea/
+/model/*
+/model_old/
+/model_s/
+/model_m/
+/data/

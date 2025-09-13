@@ -184,7 +184,7 @@ if __name__ == '__main__':
 
         with open("model/epoch.txt", "r") as f:
             pre_epochs = int(f.read())
-    # train(epochs=25, model_G=None, model_D=None, pre_epoch_num=pre_epochs)
+    train(epochs=25, model_G=None, model_D=None, pre_epoch_num=pre_epochs)
 
     # 生成
     if model_G is None:
